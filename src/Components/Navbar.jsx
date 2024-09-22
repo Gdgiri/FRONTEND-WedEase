@@ -11,6 +11,12 @@ const Navbar = () => {
   // Extract the first letter of the username
   const userInitial = user ? user.username.charAt(0).toUpperCase() : "";
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null); // Clear user state
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -111,7 +117,10 @@ const Navbar = () => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li className="d-flex justify-content-center">
-                    <button className="btn btn-danger logout text-white w-100">
+                    <button
+                      className="btn btn-danger logout text-white w-100"
+                      onClick={handleLogout}
+                    >
                       Logout
                     </button>
                   </li>

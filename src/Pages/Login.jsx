@@ -26,7 +26,7 @@ const Login = () => {
 
       if (loginUser.fulfilled.match(resultAction)) {
         const { user } = resultAction.payload;
-        onUserUpdate(user);
+
         console.log(user);
 
         setFormData({
