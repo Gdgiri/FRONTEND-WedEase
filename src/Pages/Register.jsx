@@ -100,6 +100,9 @@ const Register = () => {
                   Register
                 </button>
               </div>
+              <div>
+                <Link to="/forgot">forgot password?</Link>
+              </div>
             </div>
           </form>
         </div>
