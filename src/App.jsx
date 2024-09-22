@@ -14,10 +14,9 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Navbar />
+        <Navbar  />
         <Routes>
           <Route path="/" element={<Register />} />
-          <Route path="/login" element={<Login />} />
           <Route
             path="/admin"
             element={<AuthenticatedRoute element={<AdminDashboard />} />}
@@ -26,6 +25,8 @@ const App = () => {
             path="/user"
             element={<AuthenticatedRoute element={<UserDashboard />} />}
           />
+          <Route path="/login" element={<Login />} />
+
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
         </Routes>

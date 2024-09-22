@@ -32,3 +32,15 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
+export const logout = createAsyncThunk(
+    "auth/logout",
+    async (_, { dispatch }) => {
+      // Optionally, handle any asynchronous logic here
+      // For example, if you have an API endpoint to log out
+      // await axios.post('/api/logout');
+  
+      // Dispatch the logout action to clear user data
+      dispatch({ type: "auth/logout" }); // Dispatch a synchronous logout action
+    }
+  );

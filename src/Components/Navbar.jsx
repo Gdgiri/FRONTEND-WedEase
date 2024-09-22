@@ -2,11 +2,9 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ user, setUser }) => {
   const path = useLocation().pathname;
-
-  // Simulated user from localStorage (or your state management)
-  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   // Extract the first letter of the username
   const userInitial = user ? user.username.charAt(0).toUpperCase() : "";
@@ -78,7 +76,6 @@ const Navbar = () => {
           </div>
 
           <div className="d-flex justify-content-center">
-            {/* Check if user is logged in */}
             {user ? (
               <div className="dropdown">
                 <button
