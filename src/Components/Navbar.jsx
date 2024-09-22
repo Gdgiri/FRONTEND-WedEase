@@ -1,17 +1,26 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-const Navbar = ({ user, setUser }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../Redux/Actions/authActions";
+const Navbar = () => {
   const path = useLocation().pathname;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Extract the first letter of the username
-  const userInitial = user ? user.username.charAt(0).toUpperCase() : "";
+  const userData = useSelector((state) => state.auth.user);
+  console.log(userData);
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // Extract the user's initial
+  const userInitial =
+    userData && userData.user && userData.user.username
+      ? userData.user.username.charAt(0).toUpperCase()
+      : "";
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null); // Clear user state
+    dispatch(logout());
     navigate("/login");
   };
 
@@ -74,9 +83,8 @@ const Navbar = ({ user, setUser }) => {
               Events
             </Link>
           </div>
-
           <div className="d-flex justify-content-center">
-            {user ? (
+            {isAuthenticated ? (
               <div className="dropdown">
                 <button
                   className="btn btn-warning rounded-circle dropdown-toggle"
