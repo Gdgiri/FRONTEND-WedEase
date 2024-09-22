@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../Redux/Actions/authActions";
 
-
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -27,7 +26,6 @@ const Login = () => {
 
       if (loginUser.fulfilled.match(resultAction)) {
         const { user } = resultAction.payload;
-        //localStorage.setItem("user", JSON.stringify(user));
         console.log(user);
 
         setFormData({
@@ -99,11 +97,13 @@ const Login = () => {
                   Login
                 </button>
               </div>
+              <div>
+                <Link to="/forgot">forgot password?</Link>
+              </div>
             </div>
           </form>
         </div>
       </div>
-    
     </div>
   );
 };

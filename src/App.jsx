@@ -9,14 +9,16 @@ import UserDashboard from "./Pages/UserDashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import AuthenticatedRoute from "./Components/AuthenticateRoute";
+import FrontPage from "./Components/FrontPage";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Navbar  />
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Register />} />
+          <Route path="/" element={<FrontPage />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/admin"
             element={<AuthenticatedRoute element={<AdminDashboard />} />}

@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="container-fluid">
         <Link className="navbar-brand" to="#">
           <img
-            src="https://github.com/user-attachments/assets/0cda7b2d-fc0f-46c4-9e10-c6de3c2a4812"
+            src="https://github.com/user-attachments/assets/c819cbe1-3451-4c97-8a3a-9f1f84bca852"
             alt="GD-Events"
             width={30}
             height={24}
@@ -102,6 +102,7 @@ const Navbar = () => {
                     fontWeight: "bold",
                     backgroundColor: "#6c757d",
                     color: "white",
+                    
                   }}
                 >
                   {userInitial}
