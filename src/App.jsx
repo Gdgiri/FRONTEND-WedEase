@@ -8,6 +8,7 @@ import AdminDashboard from "./Pages/AdminDashboard";
 import UserDashboard from "./Pages/UserDashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
+import AuthenticatedRoute from "./Components/AuthenticateRoute";
 
 const App = () => {
   return (
@@ -17,10 +18,16 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/user" element={<UserDashboard />} />
+          <Route
+            path="/admin"
+            element={<AuthenticatedRoute element={<AdminDashboard />} />}
+          />
+          <Route
+            path="/user"
+            element={<AuthenticatedRoute element={<UserDashboard />} />}
+          />
           <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/reset" element={<ResetPassword />} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
         </Routes>
         <Footer />
       </BrowserRouter>
