@@ -113,7 +113,7 @@ const Navbar = () => {
                   <li className="d-flex justify-content-center mb-2">
                     <Link
                       className="btn btn-success profile text-white w-100"
-                      to="/display"
+                      to="/profile"
                     >
                       Profile
                     </Link>

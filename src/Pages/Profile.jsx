@@ -17,11 +17,11 @@ const Profile = () => {
       : "";
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-4">
       <h1 className="text-center">Profile</h1>
       <div className="d-flex justify-content-center">
         {isAuthenticated ? (
-          <div className="card text-center" style={{ width: "20rem",height:"29rem" }}>
+          <div className="card text-center m-3" style={{ width: "20rem",height:"29rem" }}>
             <div className="card-header">
               <button
                 className="btn btn-warning rounded-circle"
