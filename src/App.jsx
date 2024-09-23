@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./Pages/Register";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+
+// Authentication
+
 import Login from "./Pages/Login";
 import AdminDashboard from "./Pages/AdminDashboard";
 import UserDashboard from "./Pages/UserDashboard";
@@ -10,8 +13,10 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import AuthenticatedRoute from "./Components/AuthenticateRoute";
 import FrontPage from "./Components/FrontPage";
-import Profile from "./Pages/Profile";
 
+// Profiles
+import Profile from "./Pages/Profile";
+import CreateProfile from "./Pages/CreateProfile";
 
 const App = () => {
   return (
@@ -19,6 +24,8 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          {/* Authentications */}
+
           <Route path="/" element={<FrontPage />} />
           <Route path="/register" element={<Register />} />
           <Route
@@ -30,11 +37,14 @@ const App = () => {
             element={<AuthenticatedRoute element={<UserDashboard />} />}
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          
 
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
+
+          {/* profiles */}
+
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/newprofile" element={<CreateProfile />} />
         </Routes>
 
         <Footer />
