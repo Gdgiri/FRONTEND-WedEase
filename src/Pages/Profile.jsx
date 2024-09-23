@@ -21,7 +21,7 @@ const Profile = () => {
       <h1 className="text-center">Profile</h1>
       <div className="d-flex justify-content-center">
         {isAuthenticated ? (
-          <div className="card text-center" style={{ width: "18rem" }}>
+          <div className="card text-center" style={{ width: "20rem",height:"29rem" }}>
             <div className="card-header">
               <button
                 className="btn btn-warning rounded-circle"
@@ -30,8 +30,8 @@ const Profile = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
                 style={{
-                  width: "60px",
-                  height: "60px",
+                  width: "200px",
+                  height: "200px",
                   fontSize: "1.5rem",
                   fontWeight: "bold",
                   backgroundColor: "#6c757d",
@@ -42,16 +42,10 @@ const Profile = () => {
               </button>
             </div>
             <div className="card-body">
-              <h5 className="card-title">{userData.user.username}</h5>
-              <p className="card-text">{userData.user.email}</p>
+              <h1 className="card-title">{userData.user.username}</h1>
+              <h4 className="card-text">{userData.user.email}</h4>
             </div>
-            <div className="card-footer text-muted">
-              <button className="btn btn-success w-100">
-                <Link to="/edit-profile" className="text-white">
-                  Edit Profile
-                </Link>
-              </button>
-            </div>
+            
           </div>
         ) : (
           <h1>No profile</h1>

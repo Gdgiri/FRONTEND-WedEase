@@ -16,7 +16,7 @@ import FrontPage from "./Components/FrontPage";
 
 // Profiles
 import Profile from "./Pages/Profile";
-import CreateProfile from "./Pages/CreateProfile";
+
 
 const App = () => {
   return (
@@ -43,8 +43,8 @@ const App = () => {
 
           {/* profiles */}
 
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/newprofile" element={<CreateProfile />} />
+           <Route path="/profile" element={<Profile />} /> 
+         
         </Routes>
 
         <Footer />
