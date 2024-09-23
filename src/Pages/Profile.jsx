@@ -16,12 +16,6 @@ const Profile = () => {
       ? userData.user.username.charAt(0).toUpperCase()
       : "";
 
-  const handleLogout = () => {
-    // Implement your logout logic here
-    dispatch(logoutUser()); // Example action to log out the user
-    navigate("/login"); // Redirect to login after logout
-  };
-
   return (
     <div className="container mt-5">
       <h1 className="text-center">Profile</h1>
@@ -52,8 +46,10 @@ const Profile = () => {
               <p className="card-text">{userData.user.email}</p>
             </div>
             <div className="card-footer text-muted">
-              <button className="btn btn-success w-100" onClick={handleLogout}>
-                <Link to="/edit-profile" className="text-white">Edit Profile</Link>
+              <button className="btn btn-success w-100">
+                <Link to="/edit-profile" className="text-white">
+                  Edit Profile
+                </Link>
               </button>
             </div>
           </div>

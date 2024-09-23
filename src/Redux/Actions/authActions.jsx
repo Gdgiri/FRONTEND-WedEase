@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "react-toastify";
+
 
 const API_URL_REGISTER = "http://localhost:5000/api/auth/register";
 const API_URL_LOGIN = "http://localhost:5000/api/auth/login";
@@ -34,13 +34,17 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-    "auth/logout",
-    async (_, { dispatch }) => {
-      // Optionally, handle any asynchronous logic here
-      // For example, if you have an API endpoint to log out
-      // await axios.post('/api/logout');
-  
-      // Dispatch the logout action to clear user data
-      dispatch({ type: "auth/logout" }); // Dispatch a synchronous logout action
-    }
-  );
+  "auth/logout",
+  async (_, { dispatch }) => {
+    // Optionally, handle any asynchronous logic here
+    // For example, if you have an API endpoint to log out
+    // await axios.post('/api/logout');
+
+    // Dispatch the logout action to clear user data
+    dispatch({ type: "auth/logout" }); // Dispatch a synchronous logout action
+  }
+);
+
+
+
+
