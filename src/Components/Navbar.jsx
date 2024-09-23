@@ -9,7 +9,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.user);
-  console.log(userData);
+  //console.log(userData);
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -102,7 +102,6 @@ const Navbar = () => {
                     fontWeight: "bold",
                     backgroundColor: "#6c757d",
                     color: "white",
-                    
                   }}
                 >
                   {userInitial}

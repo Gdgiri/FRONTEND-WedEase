@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100">
+    <div className="container d-flex align-items-center justify-content-center vh-55 pt-1 m-5">
       <div className="row bg-white rounded shadow-lg overflow-hidden w-75">
         <div className="col-md-6 d-flex align-items-center justify-content-center p-4">
           <img

@@ -11,9 +11,11 @@ import ResetPassword from "./Pages/ResetPassword";
 import AuthenticatedRoute from "./Components/AuthenticateRoute";
 import FrontPage from "./Components/FrontPage";
 
+
 const App = () => {
   return (
     <div>
+     
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -32,6 +34,7 @@ const App = () => {
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
         </Routes>
+
         <Footer />
       </BrowserRouter>
     </div>

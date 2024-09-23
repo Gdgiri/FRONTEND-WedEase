@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../Redux/Actions/authActions";
 
@@ -12,7 +10,8 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Define validation schema with Yup
+  const [formMessage, setFormMessage] = useState(""); // State for success/error messages
+
   const validationSchema = Yup.object({
     username: Yup.string()
       .min(3, "Username must be at least 3 characters")
@@ -26,24 +25,42 @@ const Register = () => {
   });
 
   const handleSubmit = async (values, { resetForm }) => {
+    setFormMessage(""); // Reset any previous messages
     try {
       const resultAction = await dispatch(registerUser(values));
-      if (registerUser.fulfilled.match(resultAction)) {
+      // console.log("hai", resultAction);
+
+      // if (registerUser.fulfilled.match(resultAction)) {
+      //   resetForm();
+      //   setFormMessage("Registration successful! You can now log in."); // Set success message
+
+      //   navigate("/login");
+      // } else {
+      //   // Set failure message if registration fails
+      //   setFormMessage(
+      //     resultAction.payload.message || "Registration failed. Please try again."
+      //   );
+      // }
+
+      if (resultAction.meta.requestStatus === "fulfilled") {
         resetForm();
-        toast.success("Registration successful!");
+        setFormMessage(resultAction.payload.message); // Use success message from payload
         navigate("/login");
       } else {
-        toast.error(
-          resultAction.payload || "Registration failed. Please try again."
+        // Handle failure message if registration fails
+        setFormMessage(
+          resultAction.payload.message ||
+            "Registration failed. Please try again."
         );
       }
     } catch (error) {
-      toast.error("An unexpected error occurred");
+      setFormMessage("An unexpected error occurred");
+      console.log(error);
     }
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100">
+    <div className="container d-flex align-items-center justify-content-center vh-55 pt-1 m-5">
       <div className="row bg-white rounded shadow-lg overflow-hidden w-75">
         <div className="col-md-6 d-flex align-items-center justify-content-center p-4">
           <img
@@ -54,6 +71,17 @@ const Register = () => {
         </div>
         <div className="col-md-6 p-4">
           <h2 className="mb-4 text-center">Register</h2>
+          {formMessage && (
+            <div
+              className={`alert ${
+                formMessage.includes("successful")
+                  ? "alert-success"
+                  : "alert-danger"
+              } mb-3`}
+            >
+              {formMessage}
+            </div>
+          )}
 
           <Formik
             initialValues={{

@@ -36,16 +36,16 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100">
-      <div className="row bg-white rounded shadow-lg overflow-hidden w-75">
-        <div className="col-md-6 d-flex align-items-center justify-content-center p-4">
+    <div className="container d-flex align-items-center justify-content-center vh-55 pt-1 m-5">
+      <div className="row bg-white rounded shadow-lg overflow-hidden w-75 ">
+        <div className="col-md-6 d-flex align-items-center justify-content-center p-4 ">
           <img
             src="https://github.com/user-attachments/assets/c819cbe1-3451-4c97-8a3a-9f1f84bca852"
             alt="GD Events"
             className="img-fluid"
           />
         </div>
-        <div className="col-md-6 p-5 mt-5">
+        <div className="col-md-6 p-5 mt-5  ">
           <h2 className="mb-4 text-center">Forgot Password</h2>
 
           <Formik
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (
-              <Form className="form">
+              <Form className="form m-2 pt-5">
                 <div className="form-group mb-3">
                   <label htmlFor="email">Email</label>
                   <Field
