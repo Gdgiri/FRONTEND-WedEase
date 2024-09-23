@@ -10,12 +10,12 @@ import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import AuthenticatedRoute from "./Components/AuthenticateRoute";
 import FrontPage from "./Components/FrontPage";
-
+import Profile from "./Pages/Profile";
+import EditProfile from "./Pages/EditProfile";
 
 const App = () => {
   return (
     <div>
-     
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -30,6 +30,8 @@ const App = () => {
             element={<AuthenticatedRoute element={<UserDashboard />} />}
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
 
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
