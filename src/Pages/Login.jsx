@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,38 +9,27 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../Redux/Actions/authActions";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // Define validation schema with Yup
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (values, { resetForm }) => {
     try {
-      const resultAction = await dispatch(loginUser(formData));
+      const resultAction = await dispatch(loginUser(values));
 
       if (loginUser.fulfilled.match(resultAction)) {
         const { user } = resultAction.payload;
-        console.log(user);
-
-        setFormData({
-          email: "",
-          password: "",
-        });
+        resetForm();
         toast.success("Login successful!");
-        // navigate("/admin")
-        // if (user.isAdmin === true) {
-        //   navigate("/admin");
-        // } else {
-        //   navigate("/user");
-        // }
 
         if (user.isAdmin === true) {
           navigate("/admin");
@@ -52,6 +43,7 @@ const Login = () => {
       toast.error("An unexpected error occurred");
     }
   };
+
   return (
     <div className="container d-flex align-items-center justify-content-center vh-100">
       <div className="row bg-white rounded shadow-lg overflow-hidden w-75">
@@ -63,45 +55,63 @@ const Login = () => {
           />
         </div>
         <div className="col-md-6 p-4 mt-5">
-          <h2 className="mb-4 text-center">Login </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group mb-3">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="name@company.com"
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                placeholder="Enter Your Password"
-              />
-            </div>
-            <div>
-              <div className="d-flex justify-content-center">
-                <button type="submit" className="btn btn-primary mt-2">
-                  Login
-                </button>
-              </div>
-              <div>
-                <Link to="/forgot">forgot password?</Link>
-              </div>
-            </div>
-          </form>
+          <h2 className="mb-4 text-center">Login</h2>
+
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <div className="form-group mb-3">
+                  <label htmlFor="email">Email</label>
+                  <Field
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="name@company.com"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-danger"
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label htmlFor="password">Password</label>
+                  <Field
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Enter Your Password"
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-danger"
+                  />
+                </div>
+                <div className="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    className="btn btn-primary mt-2"
+                    disabled={isSubmitting}
+                  >
+                    Login
+                  </button>
+                </div>
+                <div className="mt-3 text-center">
+                  <Link to="/forgot">Forgot password?</Link>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
     </div>
