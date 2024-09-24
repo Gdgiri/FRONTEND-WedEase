@@ -85,68 +85,77 @@ const DisplayAdmin = () => {
                   </div>
                   <div className="col-md-6">
                     <div className="card-body d-flex flex-column justify-content-center">
-                      <h4 className="card-title">
+                      <h5 className="card-title">
                         Venue Name: {event.venueName}
-                      </h4>
-                      <h4 className="card-text">
+                      </h5>
+                      <br />
+                      <h5 className="card-text">
                         Venue Place: {event.venuePlace}
-                      </h4>
-                      <h4 className="card-text">Price: ₹{event.venueAmount}</h4>
+                      </h5>
+                      <br />
+                      <h5 className="card-text">Price: ₹{event.venueAmount}</h5>
                     </div>
                   </div>
                 </div>
 
-                {/* Displaying Event Services in Table Format */}
                 <div className="card-body">
                   <h5 className="card-title">Event Services:</h5>
-                  <table className="table table-borderless">
-                    <tbody>
-                      {/* Service List Items */}
-                      {[
-                        {
-                          name: "Catering",
-                          amount: event.cateringAmount,
-                          serviceName: event.cateringName,
-                        },
-                        {
-                          name: "Photography",
-                          amount: event.photographerAmount,
-                          serviceName: event.photographerName,
-                        },
-                        {
-                          name: "Event Stylist",
-                          amount: event.eventStylistAmount,
-                          serviceName: event.eventStylistName,
-                        },
-                        {
-                          name: "Entertainer",
-                          amount: event.entertainerAmount,
-                          serviceName: event.entertainerName,
-                        },
-                        {
-                          name: "Beautician",
-                          amount: event.beauticianAmount,
-                          serviceName: event.beauticianName,
-                        },
-                        {
-                          name: "Transport",
-                          amount: event.transportAmount,
-                          serviceName: event.transportName,
-                        },
-                      ].map((service, idx) => (
-                        <tr key={idx}>
-                          <td>
-                            {service.name}: {service.serviceName}
-                          </td>
-                          <td className="text-end">₹{service.amount}</td>
-                          <td>
-                            <button className="btn btn-success btn-sm">
-                              View
-                            </button>
-                          </td>
-                          <></>
-                        </tr>
-                      ))}
+                  <table className="table table-borderless m-3">
+                    <tbody >
+                      <tr>
+                        <td>Catering: {event.cateringName}</td>
+                        <td>{event.cateringAmount}</td>
+                        <td>
+                          <button className="btn btn-success">
+                            view Detail
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Photography: {event.photographerName}</td>
+                        <td>{event.photographerAmount}</td>
+                        <td>
+                          <button className="btn btn-success">
+                            view Detail
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>eventStylist: {event.eventStylistName}</td>
+                        <td>{event.eventStylistAmount}</td>
+                        <td>
+                          <button className="btn btn-success">
+                            view Detail
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Entertainer: {event.entertainerName}</td>
+                        <td>{event.entertainerAmount}</td>
+                        <td>
+                          <button className="btn btn-success">
+                            view Detail
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Beautician:{event.beauticianName}</td>
+                        <td>{event.beauticianAmount}</td>
+                        <td>
+                          <button className="btn btn-success">
+                            view Detail
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Transport:{event.transportName}</td>
+                        <td>{event.transportAmount}</td>
+                        <td>
+                          <button className="btn btn-success">
+                            view Detail
+                          </button>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
