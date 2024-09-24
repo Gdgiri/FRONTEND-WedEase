@@ -22,13 +22,20 @@ const Footer = () => {
           {/* Social Links */}
           <div className="col-md-4 d-flex justify-content-center justify-content-md-end gap-3">
             <Link to="/" className="text-decoration-none">
-            <i className="bi bi-facebook text-danger"></i>
+              <i className="bi bi-facebook text-primary"></i>
             </Link>
             <Link to="/" className="text-decoration-none">
-            <i className="bi bi-twitter-x text-danger"></i>
+              <i className="bi bi-twitter-x text-dark"></i>
             </Link>
             <Link to="/" className="text-decoration-none">
-            <i className="bi bi-github text-danger"></i>
+              <i className="bi bi-github text-dark"></i>
+            </Link>
+            <Link to="/" className="text-decoration-none">
+              <i className="bi bi-instagram text-danger"></i>
+            </Link>
+
+            <Link to="/" className="text-decoration-none">
+              <i className="bi bi-pinterest text-danger"></i>
             </Link>
           </div>
         </div>

@@ -122,17 +122,27 @@ const AdminUpload = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid vh-55 mt-5">
       <ToastContainer />
       <div className="row">
-        <div className="col-md-10 offset-md-1">
+        
+        <div className="col-md-6 offset-md-3">
           <div className="card shadow">
-            <div className="card-header text-center">
-              <h4>Upload Events</h4>
+          <div className="card-header text-center">
+              <div className="d-flex align-items-center justify-content-center">
+                <img
+                  src="https://github.com/user-attachments/assets/c819cbe1-3451-4c97-8a3a-9f1f84bca852"
+                  alt="Logo"
+                  height={"150px"}
+                  className="me-3"
+                />
+                <h2 className="m-0">Event Upload</h2>
+              </div>
             </div>
-            <div className="card-body">
+            <div className="card-body ">
               <form onSubmit={formik.handleSubmit}>
                 <div className="form-group mb-4">
+                    
                   <label htmlFor="venueImg">Venue Image:</label>
                   {imgPerc > 0 && (
                     <div className="progress mb-2">
