@@ -19,7 +19,7 @@ const UserDashboard = () => {
         </div>
       </div>
 
-      <button>Add Events</button>
+      <button>search events</button>
     </div>
   );
 };

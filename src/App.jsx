@@ -16,7 +16,7 @@ import FrontPage from "./Components/FrontPage";
 
 // Profiles
 import Profile from "./Pages/Profile";
-
+import AdminUpload from "./Pages/AdminUpload";
 
 const App = () => {
   return (
@@ -44,7 +44,10 @@ const App = () => {
           {/* profiles */}
 
           <Route path="/profile" element={<Profile />} />
-         
+
+          {/* Admin page */}
+
+          <Route path="/uploadevent" element={<AdminUpload />} />
         </Routes>
 
         <Footer />

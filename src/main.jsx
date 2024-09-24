@@ -6,6 +6,7 @@ import { store, persistor } from "./Redux/Store"; // Adjust the path to your sto
 import App from "./App"; // Your main App component
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

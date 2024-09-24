@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -42,7 +43,7 @@ const AdminDashboard = () => {
       
       
 
-      <button>Add Events</button>
+      <button className="btn btn-primary"><Link to="/uploadevent" className="text-white">Add Events</Link></button>
     </div>
   );
 };
