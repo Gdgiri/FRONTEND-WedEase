@@ -144,10 +144,17 @@ const DisplayAdmin = () => {
                               View
                             </button>
                           </td>
+                          <></>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                </div>
+                <div className="d-flex justify-content-center m-2">
+                  <Link to={`/edit`} className="btn btn-warning btn-sm mx-1">
+                    Edit
+                  </Link>
+                  <button className="btn btn-danger btn-sm mx-1">Delete</button>
                 </div>
               </div>
             </div>
