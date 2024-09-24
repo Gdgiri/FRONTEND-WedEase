@@ -17,6 +17,7 @@ import FrontPage from "./Components/FrontPage";
 // Profiles
 import Profile from "./Pages/Profile";
 import AdminUpload from "./Pages/AdminUpload";
+import DisplayAdmin from "./Pages/DisplayAdmin";
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
           {/* Admin page */}
 
           <Route path="/uploadevent" element={<AdminUpload />} />
+          <Route path="/display" element={<DisplayAdmin />} />
         </Routes>
 
         <Footer />

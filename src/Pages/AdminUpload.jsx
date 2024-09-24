@@ -81,7 +81,7 @@ const AdminUpload = () => {
         console.log("Server Response:", res.data);
         dispatch(createEvent(res.data.result));
         toast.success("Event created successfully");
-        setTimeout(() => navigate("/"), 1500);
+        setTimeout(() => navigate("/display"), 1500);
       } catch (error) {
         console.log(
           "Error creating event:",
@@ -125,10 +125,9 @@ const AdminUpload = () => {
     <div className="container-fluid vh-55 mt-5">
       <ToastContainer />
       <div className="row">
-        
         <div className="col-md-6 offset-md-3">
           <div className="card shadow">
-          <div className="card-header text-center">
+            <div className="card-header text-center">
               <div className="d-flex align-items-center justify-content-center">
                 <img
                   src="https://github.com/user-attachments/assets/c819cbe1-3451-4c97-8a3a-9f1f84bca852"
@@ -142,7 +141,6 @@ const AdminUpload = () => {
             <div className="card-body ">
               <form onSubmit={formik.handleSubmit}>
                 <div className="form-group mb-4">
-                    
                   <label htmlFor="venueImg">Venue Image:</label>
                   {imgPerc > 0 && (
                     <div className="progress mb-2">
