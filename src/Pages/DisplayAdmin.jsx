@@ -26,6 +26,17 @@ const DisplayAdmin = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/event/delete/${id}`);
+      setData(data.filter((event) => event._id !== id));
+      alert("Event deleted successfully");
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      alert("Failed to delete event");
+    }
+  };
+
   const filteredData = data.filter((event) => {
     const venueNameMatch = event.venueName
       .toLowerCase()
@@ -35,12 +46,16 @@ const DisplayAdmin = () => {
       .includes(search.toLowerCase());
     const venueAmountMatch =
       event.venueAmount && event.venueAmount.toString().includes(search);
-
     return venueNameMatch || venuePlaceMatch || venueAmountMatch;
   });
 
   const handleNav = () => {
     navigate("/uploadevent");
+  };
+
+  // Corrected handleEdit function
+  const handleEdit = (_id) => {
+    navigate(`/edit/${_id}`); // Use _id from the event
   };
 
   if (loading) {
@@ -73,14 +88,14 @@ const DisplayAdmin = () => {
         {filteredData.length > 0 ? (
           filteredData.map((event, index) => (
             <div className="col-md-6" key={index}>
-              <div className="card mb-4 shadow-sm">
-                <div className="row no-gutters">
-                  <div className="col-md-6">
+              <div className="card mb-6 shadow-sm">
+                <div className="row m-2 bg-light">
+                  <div className="col-md-5">
                     <img
                       src={event.venueImg}
-                      className="card-img"
+                      className="card-img img-fluid"
                       alt={event.venueName}
-                      style={{ height: "200px", objectFit: "cover" }}
+                      style={{ height: "200px", width: "200px" }}
                     />
                   </div>
                   <div className="col-md-6">
@@ -101,69 +116,32 @@ const DisplayAdmin = () => {
                 <div className="card-body">
                   <h5 className="card-title">Event Services:</h5>
                   <table className="table table-borderless m-3">
-                    <tbody >
+                    <tbody>
                       <tr>
                         <td>Catering: {event.cateringName}</td>
-                        <td>{event.cateringAmount}</td>
                         <td>
-                          <button className="btn btn-success">
-                            view Detail
-                          </button>
+                          <button className="btn btn-success">view</button>
                         </td>
                       </tr>
                       <tr>
-                        <td>Photography: {event.photographerName}</td>
-                        <td>{event.photographerAmount}</td>
-                        <td>
-                          <button className="btn btn-success">
-                            view Detail
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>eventStylist: {event.eventStylistName}</td>
-                        <td>{event.eventStylistAmount}</td>
-                        <td>
-                          <button className="btn btn-success">
-                            view Detail
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Entertainer: {event.entertainerName}</td>
-                        <td>{event.entertainerAmount}</td>
-                        <td>
-                          <button className="btn btn-success">
-                            view Detail
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Beautician:{event.beauticianName}</td>
-                        <td>{event.beauticianAmount}</td>
-                        <td>
-                          <button className="btn btn-success">
-                            view Detail
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Transport:{event.transportName}</td>
-                        <td>{event.transportAmount}</td>
-                        <td>
-                          <button className="btn btn-success">
-                            view Detail
-                          </button>
-                        </td>
+                        <td>Catering: {event.cateringName}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <div className="d-flex justify-content-center m-2">
-                  <Link to={`/edit`} className="btn btn-warning btn-sm mx-1">
+                  <button
+                    className="btn btn-warning btn-sm mx-1"
+                    onClick={() => handleEdit(event._id)} // Call handleEdit directly
+                  >
                     Edit
-                  </Link>
-                  <button className="btn btn-danger btn-sm mx-1">Delete</button>
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm mx-1"
+                    onClick={() => handleDelete(event._id)} // Call delete function
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
