@@ -45,7 +45,7 @@ const Register = () => {
       if (resultAction.meta.requestStatus === "fulfilled") {
         resetForm();
         setFormMessage(resultAction.payload.message); // Use success message from payload
-        navigate("/newprofile");
+        navigate("/login");
       } else {
         // Handle failure message if registration fails
         setFormMessage(

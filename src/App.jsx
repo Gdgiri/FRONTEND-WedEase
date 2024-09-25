@@ -19,6 +19,8 @@ import Profile from "./Pages/Profile";
 import AdminUpload from "./Pages/AdminUpload";
 import DisplayAdmin from "./Pages/DisplayAdmin";
 import EditEvent from "./Pages/EditEvent";
+import FoodSelection from "./Pages/FoodSelection";
+import PhotographerSelection from "./Pages/PhotographerSelection";
 
 const App = () => {
   return (
@@ -52,6 +54,14 @@ const App = () => {
           <Route path="/uploadevent" element={<AdminUpload />} />
           <Route path="/display" element={<DisplayAdmin />} />
           <Route path="/edit/:id" element={<EditEvent />} />
+
+          {/* catering */}
+
+          <Route path="/catering" element={<FoodSelection />} />
+
+          {/* photography */}
+
+          <Route path="/photo" element={<PhotographerSelection />} />
         </Routes>
 
         <Footer />
