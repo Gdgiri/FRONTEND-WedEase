@@ -31,6 +31,8 @@ import CreateEventStylist from "./Pages/createEventStylist";
 import EventStylistList from "./Pages/EventStylistList";
 import TransportSelection from "./Pages/TransportSelection";
 import CreateTransport from "./Pages/CreateTransport";
+import EventForm from "./Pages/EventForm";
+import DisplayUser from "./Pages/DisplayUser";
 
 const App = () => {
   return (
@@ -93,6 +95,11 @@ const App = () => {
 
           <Route path="/createtransport" element={<CreateTransport />} />
           <Route path="/gettransport" element={<TransportSelection />} />
+
+          {/* user page*/}
+
+          <Route path="/eventform" element={<EventForm />} />
+          <Route path="/displayuser" element={<DisplayUser />} />
         </Routes>
 
         <Footer />

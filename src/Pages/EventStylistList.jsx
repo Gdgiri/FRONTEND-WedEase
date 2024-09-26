@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const EventStylistList = () => {
   const [eventStylists, setEventStylists] = useState([]); // Initialize as an empty array
   const [selectedServices, setSelectedServices] = useState({});
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalStyleAmount, setTotalStyleAmount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate(); // Initialize navigate
 
@@ -37,10 +37,10 @@ const EventStylistList = () => {
 
     if (currentServices[key]) {
       delete currentServices[key];
-      setTotalAmount((prev) => prev - servicePrice);
+      setTotalStyleAmount((prev) => prev - servicePrice);
     } else {
       currentServices[key] = { label: serviceLabel, price: servicePrice };
-      setTotalAmount((prev) => prev + servicePrice);
+      setTotalStyleAmount((prev) => prev + servicePrice);
     }
 
     setSelectedServices(currentServices);
@@ -48,7 +48,12 @@ const EventStylistList = () => {
 
   const handleSubmit = () => {
     const selectedItems = Object.values(selectedServices);
-    navigate("/dashboard", { state: { totalAmount, selectedItems } });
+    const File = {
+      totalStyleAmount,
+      selectedItems,
+    };
+    localStorage.setItem("totalStyleAmount", totalStyleAmount);
+    navigate("/displayuser", { state: { File } });
   };
 
   return (
@@ -95,11 +100,11 @@ const EventStylistList = () => {
           ))}
         </div>
       )}
-      <h4>Total Amount: ₹{totalAmount}</h4>
+      <h4>Total Amount: ₹{totalStyleAmount}</h4>
       <button
         className="btn btn-primary"
         onClick={handleSubmit}
-        disabled={totalAmount === 0}
+        disabled={totalStyleAmount === 0}
       >
         Proceed to Dashboard
       </button>

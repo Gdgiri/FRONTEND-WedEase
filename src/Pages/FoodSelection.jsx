@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
+import DisplayUser from "./DisplayUser";
 
 const FoodSelection = () => {
   const [foodData, setFoodData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showVeg, setShowVeg] = useState(true); // State to toggle between veg and non-veg
-  const [selectedItems, setSelectedItems] = useState({}); // Track selected items
-  const [totalAmount, setTotalAmount] = useState(0); // Track total amount
-  const [searchQuery, setSearchQuery] = useState(""); // Search query state
-  const navigate = useNavigate(); // For navigation
+  const [showVeg, setShowVeg] = useState(true);
+  const [selectedItems, setSelectedItems] = useState({});
+  const [totalCateringAmount, setTotalCateringAmount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [cart, setCart] = useState([]); // State to hold cart items
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFoodData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/event/getfood"); // Update with your actual API endpoint
+        const response = await fetch("http://localhost:5000/api/event/getfood");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -43,23 +45,28 @@ const FoodSelection = () => {
     setSelectedItems((prev) => {
       const updatedItems = { ...prev };
       if (updatedItems[optionId]) {
-        // If already selected, remove it
         delete updatedItems[optionId];
-        setTotalAmount((prevTotal) => prevTotal - price); // Subtract price directly
+        setTotalCateringAmount((prevTotal) => prevTotal - price);
+        setCart((prevCart) => prevCart.filter((item) => item.label !== label)); // Remove from cart
       } else {
-        // If not selected, add it
         updatedItems[optionId] = { label, price };
-        setTotalAmount((prevTotal) => prevTotal + price); // Add price directly
+        setTotalCateringAmount((prevTotal) => prevTotal + price);
+        setCart((prevCart) => [...prevCart, { label, price }]); // Add to cart
       }
       return updatedItems;
     });
   };
 
   const handleSubmit = () => {
-    navigate("/", { state: { selectedItems, totalAmount } }); // Pass selected items and total amount to Dashboard
+    const selectData = {
+      selectedItems,
+      totalCateringAmount,
+      cart, // Pass cart data
+    };
+    localStorage.setItem("totalCateringAmount", totalCateringAmount);
+    navigate("/displayuser", { state: { selectData } });
   };
 
-  // Filter food data based on search query
   const filteredFoodData = (showVeg ? foodData?.veg : foodData?.nonVeg)?.filter(
     (item) => item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -80,10 +87,6 @@ const FoodSelection = () => {
 
   return (
     <div className="container mt-4">
-      <div className="mx-auto">
-        <button className="btn btn-primary">Add Food</button>
-      </div>
-
       <h2 className="text-center">Food Selection</h2>
       <div className="d-flex justify-content-center mb-4">
         <button className="btn btn-success mx-2" onClick={handleVegClick}>
@@ -94,7 +97,6 @@ const FoodSelection = () => {
         </button>
       </div>
 
-      {/* Search Box */}
       <div className="mb-3">
         <input
           type="text"
@@ -128,12 +130,12 @@ const FoodSelection = () => {
                         type="checkbox"
                         onChange={() =>
                           handleCheckboxChange(
-                            option.label, // Using label for option ID
+                            option.label,
                             option.price,
                             option.label
                           )
                         }
-                        checked={!!selectedItems[option.label]} // Using label for checking
+                        checked={!!selectedItems[option.label]}
                       />
                       {option.label} - Price: ₹{option.price}
                     </label>
@@ -149,11 +151,13 @@ const FoodSelection = () => {
         </div>
       )}
 
-      <h3 className="text-center">Total Amount: ₹{totalAmount}</h3>
+      <h3 className="text-center">
+        Total Catering Amount: ₹{totalCateringAmount}
+      </h3>
       <button
         className="btn btn-success mt-3"
         onClick={handleSubmit}
-        disabled={totalAmount === 0}
+        disabled={totalCateringAmount === 0}
       >
         Submit
       </button>

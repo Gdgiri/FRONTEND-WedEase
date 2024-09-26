@@ -12,7 +12,7 @@ import { app } from "../firebase"; // Import your Firebase app
 const TransportSelection = () => {
   const [transports, setTransports] = useState([]); // Initialize as an empty array
   const [selectedServices, setSelectedServices] = useState({});
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [transportAmount, setTransportAmount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const navigate = useNavigate(); // Initialize navigate
@@ -43,10 +43,10 @@ const TransportSelection = () => {
 
     if (currentServices[key]) {
       delete currentServices[key];
-      setTotalAmount((prev) => prev - servicePrice);
+      setTransportAmount((prev) => prev - servicePrice);
     } else {
       currentServices[key] = { label: serviceLabel, price: servicePrice };
-      setTotalAmount((prev) => prev + servicePrice);
+      setTransportAmount((prev) => prev + servicePrice);
     }
 
     setSelectedServices(currentServices);
@@ -54,7 +54,12 @@ const TransportSelection = () => {
 
   const handleSubmit = () => {
     const selectedItems = Object.values(selectedServices);
-    navigate("/dashboard", { state: { totalAmount, selectedItems } });
+    const selData = {
+      transportAmount,
+      selectedItems,
+    };
+    localStorage.setItem("transportAmount", transportAmount);
+    navigate("/displayuser", { state: { selData } });
   };
 
   const handleImageUpload = (e) => {
@@ -127,13 +132,13 @@ const TransportSelection = () => {
           ))}
         </div>
       )}
-      <h4>Total Amount: ₹{totalAmount}</h4>
+      <h4>Total Amount: ₹{transportAmount}</h4>
       <input type="file" onChange={handleImageUpload} />
       {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
       <button
         className="btn btn-primary"
         onClick={handleSubmit}
-        disabled={totalAmount === 0}
+        disabled={transportAmount === 0}
       >
         Proceed to Dashboard
       </button>

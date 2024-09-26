@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
+import { Navigate, useNavigate } from "react-router-dom";
 
 const PhotographerSelection = () => {
   const [photographerData, setPhotographerData] = useState([]);
   const [selectedPackages, setSelectedPackages] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalPhotoAmount, setTotalPhotoAmount] = useState(0); // Renamed
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch data from the API
   useEffect(() => {
@@ -20,8 +22,7 @@ const PhotographerSelection = () => {
         }
         const data = await response.json();
 
-        // Log fetched data to check the structure
-        console.log("Fetched data:", data);
+        //console.log("Fetched data:", data);
 
         if (data.result && Array.isArray(data.result)) {
           setPhotographerData(data.result);
@@ -43,16 +44,20 @@ const PhotographerSelection = () => {
   // Handle checkbox selection and updating total
   const handlePackageSelect = (pkg, checked) => {
     const price = parseFloat(pkg.options[0]?.price);
-    console.log("Selected package:", pkg); // Log selected package details
+    //console.log("Selected package:", pkg);
 
     if (checked) {
       setSelectedPackages((prev) => [...prev, pkg]);
-      setTotalAmount((prevTotal) => prevTotal + (isNaN(price) ? 0 : price));
+      setTotalPhotoAmount(
+        (prevTotal) => prevTotal + (isNaN(price) ? 0 : price)
+      ); // Updated
     } else {
       setSelectedPackages((prev) =>
         prev.filter((selectedPkg) => selectedPkg.label !== pkg.label)
       );
-      setTotalAmount((prevTotal) => prevTotal - (isNaN(price) ? 0 : price));
+      setTotalPhotoAmount(
+        (prevTotal) => prevTotal - (isNaN(price) ? 0 : price)
+      ); // Updated
     }
   };
 
@@ -60,9 +65,10 @@ const PhotographerSelection = () => {
   const handleSubmit = () => {
     const selectedData = {
       selectedPackages,
-      totalAmount,
+      totalPhotoAmount,
     };
-    console.log("Selected packages and total amount:", selectedData);
+    localStorage.setItem("totalPhotoAmount", totalPhotoAmount);
+    navigate("/displayuser", { state: selectedData }); // Pass selected packages and total photo amount
   };
 
   return (
@@ -88,17 +94,9 @@ const PhotographerSelection = () => {
                     <ul className="list-group list-group-flush">
                       {photographer.packages.map((pkg, index) => {
                         const price = parseFloat(pkg.options[0]?.price);
-                        const label = pkg.options[0]?.label; // Get the label from options
-                        console.log("Package Label:", label);
-                        // console.log("Package Data:", pkg); // Log package data
-                        // console.log("Package Price:", price); // Log price
-                        // console.log("name", pkg.label);
-                        console.log(
-                          "Photographer Packages:",
-                          photographer.packages.type
-                        );
+                        const label = pkg.options[0]?.label;
+                        // console.log("Package Label:", label);
 
-                        // Additional check for the price type
                         if (isNaN(price)) {
                           console.warn(
                             `Invalid price for package ${pkg.label}:`,
@@ -111,15 +109,14 @@ const PhotographerSelection = () => {
                             <label className="form-check-label">
                               <input
                                 type="checkbox"
-                                className="form-check-input" // Add Bootstrap class for styling
+                                className="form-check-input"
                                 value={label}
                                 onChange={(e) =>
                                   handlePackageSelect(pkg, e.target.checked)
                                 }
                               />
                               {label} - ₹{" "}
-                              {isNaN(price) ? "N/A" : price.toFixed(2)}{" "}
-                              {/* Handle invalid price */}
+                              {isNaN(price) ? "N/A" : price.toFixed(2)}
                             </label>
                           </li>
                         );
@@ -132,7 +129,8 @@ const PhotographerSelection = () => {
           </div>
 
           <div className="mt-4">
-            <h4>Total Amount: ₹{totalAmount.toFixed(2)}</h4>
+            <h4>Total Photography Amount: ₹{totalPhotoAmount.toFixed(2)}</h4>{" "}
+            {/* Updated */}
             <button
               className="btn btn-primary"
               onClick={handleSubmit}

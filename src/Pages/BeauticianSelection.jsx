@@ -62,13 +62,13 @@ const BeauticianSelection = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     // Structure the selected data as needed
-    const selectedData = {
+    const selected = {
       selectedServices,
       totalPrice,
     };
 
-    // Use navigate to go to the dashboard page and send data as state
-    navigate("/dashboard", { state: selectedData }); // Adjust the path as necessary
+    localStorage.setItem("totalPrice", totalPrice);
+    navigate("/displayuser", { state: selected }); // Pass selected packages and total photo amount
   };
 
   return (

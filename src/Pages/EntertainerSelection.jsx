@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const EntertainerSelection = () => {
   const [entertainers, setEntertainers] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState({});
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalEntertainAmount, setTotalEntertainAmount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const fetchEntertainers = async () => {
     try {
       const response = await axios.get(
         "http://localhost:5000/api/event/getenter"
       );
-      //console.log(response.data.result);
-
       setEntertainers(response.data.result); // Assuming your backend sends the correct data
       setErrorMessage("");
     } catch (error) {
@@ -52,7 +52,24 @@ const EntertainerSelection = () => {
         });
       }
     });
-    setTotalAmount(total);
+    setTotalEntertainAmount(total);
+  };
+
+  // New function to handle navigation to dashboard
+  const handleBook = () => {
+    const selectedItems = Object.keys(selectedOptions).map((key) => ({
+      entertainerId: key,
+      options: selectedOptions[key],
+    }));
+
+    // Create a combined object
+    const bookingData = {
+      selectedItems,
+      totalEntertainAmount,
+    };
+
+    localStorage.setItem("totalEntertainAmount", totalEntertainAmount);
+    navigate("/displayuser", { state: bookingData });
   };
 
   return (
@@ -105,8 +122,11 @@ const EntertainerSelection = () => {
         )}
       </div>
       <div className="mt-4">
-        <h4>Total Amount: ${totalAmount}</h4>
+        <h4>Total Amount: ${totalEntertainAmount}</h4>
       </div>
+      <button className="btn btn-primary" onClick={handleBook}>
+        Proceed to Dashboard
+      </button>
     </div>
   );
 };
