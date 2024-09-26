@@ -27,6 +27,8 @@ import EntertainerForm from "./Pages/EntertainerForm";
 import EntertainerSelection from "./Pages/EntertainerSelection";
 import BeauticianForm from "./Pages/BeauticianForm";
 import BeauticianSelection from "./Pages/BeauticianSelection";
+import CreateEventStylist from "./Pages/createEventStylist";
+import EventStylistList from "./Pages/EventStylistList";
 
 const App = () => {
   return (
@@ -79,6 +81,11 @@ const App = () => {
 
           <Route path="/createbeauty" element={<BeauticianForm />} />
           <Route path="/getbeauty" element={<BeauticianSelection />} />
+
+          {/* event stylist */}
+
+          <Route path="/eventstyle" element={<CreateEventStylist />} />
+          <Route path="/getstyle" element={<EventStylistList />} />
         </Routes>
 
         <Footer />
