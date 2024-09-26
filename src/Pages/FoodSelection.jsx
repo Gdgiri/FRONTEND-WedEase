@@ -9,6 +9,7 @@ const FoodSelection = () => {
   const [showVeg, setShowVeg] = useState(true); // State to toggle between veg and non-veg
   const [selectedItems, setSelectedItems] = useState({}); // Track selected items
   const [totalAmount, setTotalAmount] = useState(0); // Track total amount
+  const [searchQuery, setSearchQuery] = useState(""); // Search query state
   const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
@@ -58,6 +59,11 @@ const FoodSelection = () => {
     navigate("/", { state: { selectedItems, totalAmount } }); // Pass selected items and total amount to Dashboard
   };
 
+  // Filter food data based on search query
+  const filteredFoodData = (showVeg ? foodData?.veg : foodData?.nonVeg)?.filter(
+    (item) => item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -74,6 +80,10 @@ const FoodSelection = () => {
 
   return (
     <div className="container mt-4">
+      <div className="mx-auto">
+        <button className="btn btn-primary">Add Food</button>
+      </div>
+
       <h2 className="text-center">Food Selection</h2>
       <div className="d-flex justify-content-center mb-4">
         <button className="btn btn-success mx-2" onClick={handleVegClick}>
@@ -84,94 +94,59 @@ const FoodSelection = () => {
         </button>
       </div>
 
-      {showVeg ? (
-        <>
-          <h3 className="text-center">Vegetarian Options</h3>
-          {foodData.veg && foodData.veg.length > 0 ? (
-            foodData.veg.map((item) => (
-              <div key={item._id} className="card mb-3">
-                <div className="card-body">
-                  <h4 className="card-title">{item.name}</h4>
-                  <img
-                    src={item.imgUrl}
-                    alt={item.name}
-                    className="img-fluid mb-3"
-                    style={{ maxWidth: "200px", height: "auto" }}
-                  />
-                  <h5>Options:</h5>
-                  <ul className="list-group">
-                    {item.options.map((option) => (
-                      <li className="list-group-item" key={option.label}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            onChange={() =>
-                              handleCheckboxChange(
-                                option.label, // Using label for option ID
-                                option.price,
-                                option.label
-                              )
-                            }
-                            checked={!!selectedItems[option.label]} // Using label for checking
-                          />
-                          {option.label} - Price: ₹{option.price}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="alert alert-warning">
-              No vegetarian options available.
+      {/* Search Box */}
+      <div className="mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search for food..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      <h3 className="text-center">
+        {showVeg ? "Vegetarian" : "Non-Vegetarian"} Options
+      </h3>
+      {filteredFoodData && filteredFoodData.length > 0 ? (
+        filteredFoodData.map((item) => (
+          <div key={item._id} className="card mb-3">
+            <div className="card-body">
+              <h4 className="card-title">{item.name}</h4>
+              <img
+                src={item.imgUrl}
+                alt={item.name}
+                className="img-fluid mb-3"
+                style={{ maxWidth: "200px", height: "auto" }}
+              />
+              <h5>Options:</h5>
+              <ul className="list-group">
+                {item.options.map((option) => (
+                  <li className="list-group-item" key={option.label}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        onChange={() =>
+                          handleCheckboxChange(
+                            option.label, // Using label for option ID
+                            option.price,
+                            option.label
+                          )
+                        }
+                        checked={!!selectedItems[option.label]} // Using label for checking
+                      />
+                      {option.label} - Price: ₹{option.price}
+                    </label>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
-        </>
+          </div>
+        ))
       ) : (
-        <>
-          <h3 className="text-center">Non-Vegetarian Options</h3>
-          {foodData.nonVeg && foodData.nonVeg.length > 0 ? (
-            foodData.nonVeg.map((item) => (
-              <div key={item._id} className="card mb-3">
-                <div className="card-body">
-                  <h4 className="card-title">{item.name}</h4>
-                  <img
-                    src={item.imgUrl}
-                    alt={item.name}
-                    className="img-fluid mb-3"
-                    style={{ maxWidth: "200px", height: "auto" }}
-                  />
-                  <h5>Options:</h5>
-                  <ul className="list-group">
-                    {item.options.map((option) => (
-                      <li className="list-group-item" key={option.label}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            onChange={() =>
-                              handleCheckboxChange(
-                                option.label, // Using label for option ID
-                                option.price,
-                                option.label
-                              )
-                            }
-                            checked={!!selectedItems[option.label]} // Using label for checking
-                          />
-                          {option.label} - Price: ₹{option.price}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="alert alert-warning">
-              No non-vegetarian options available.
-            </div>
-          )}
-        </>
+        <div className="alert alert-warning">
+          No {showVeg ? "vegetarian" : "non-vegetarian"} options available.
+        </div>
       )}
 
       <h3 className="text-center">Total Amount: ₹{totalAmount}</h3>

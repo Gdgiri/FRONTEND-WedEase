@@ -21,6 +21,10 @@ import DisplayAdmin from "./Pages/DisplayAdmin";
 import EditEvent from "./Pages/EditEvent";
 import FoodSelection from "./Pages/FoodSelection";
 import PhotographerSelection from "./Pages/PhotographerSelection";
+import CreateFoodItem from "./Pages/CreateFoodItem";
+import CreatePhotographer from "./Pages/CreatePhotographer";
+import EntertainerForm from "./Pages/EntertainerForm";
+import EntertainerSelection from "./Pages/EntertainerSelection";
 
 const App = () => {
   return (
@@ -57,11 +61,17 @@ const App = () => {
 
           {/* catering */}
 
+          <Route path="/createcatering" element={<CreateFoodItem />} />
           <Route path="/catering" element={<FoodSelection />} />
 
           {/* photography */}
-
+          <Route path="/createphoto" element={<CreatePhotographer />} />
           <Route path="/photo" element={<PhotographerSelection />} />
+
+          {/* Entertainer */}
+
+          <Route path="/createenter" element={<EntertainerForm />} />
+          <Route path="/entertain" element={<EntertainerSelection />} />
         </Routes>
 
         <Footer />
