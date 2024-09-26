@@ -25,6 +25,8 @@ import CreateFoodItem from "./Pages/CreateFoodItem";
 import CreatePhotographer from "./Pages/CreatePhotographer";
 import EntertainerForm from "./Pages/EntertainerForm";
 import EntertainerSelection from "./Pages/EntertainerSelection";
+import BeauticianForm from "./Pages/BeauticianForm";
+import BeauticianSelection from "./Pages/BeauticianSelection";
 
 const App = () => {
   return (
@@ -72,6 +74,11 @@ const App = () => {
 
           <Route path="/createenter" element={<EntertainerForm />} />
           <Route path="/entertain" element={<EntertainerSelection />} />
+
+          {/* Beautician */}
+
+          <Route path="/createbeauty" element={<BeauticianForm />} />
+          <Route path="/getbeauty" element={<BeauticianSelection />} />
         </Routes>
 
         <Footer />
