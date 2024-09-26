@@ -65,8 +65,8 @@ const EventStylistList = () => {
                 <img
                   src={stylist.imgUrl}
                   alt={stylist.name}
-                  className="card-img-top"
-                  style={{ height: "100px" }}
+                  className="card-img-top" // Bootstrap class for image
+                  style={{ maxHeight: "150px", objectFit: "cover" }} // Set height and fit
                 />
                 <div className="card-body">
                   <h5 className="card-title">{stylist.name}</h5>
